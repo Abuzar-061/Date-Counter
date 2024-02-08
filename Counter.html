@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Counter</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    #container {
+      width: 100%;
+      height: 100vh;
+      background-color: rgb(4, 4, 59);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #container > div {
+      width: 90px;
+      height: 90px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      background-color: rgb(67, 67, 158);
+      border-radius: 10px;
+      font-size: 2rem;
+      margin: 0 10px;
+    }
+    </style>
+</head>
+<body>
+  <div id="container">
+    <div class="day"></div>
+    <div class="hour"></div>
+    <div class="minute"></div>
+    <div class="second" style="color: red;"></div>
+  </div>
+
+  <script>
+    const container = document.getElementById('container');
+    const day = document.querySelector('.day');
+    const hour = document.querySelector('.hour');
+    const minute = document.querySelector('.minute');
+    const second = document.querySelector('.second');
+
+    const countDownDate = new Date('Jun 5, 2024 00:00:00').getTime(); // GIVE THE DATE OF YOUR CHOICE
+
+    const x = setInterval(() => {
+      const now = new Date().getTime(); // get the current date and time
+      const distance = countDownDate - now; // distance between now and the count down date
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24)); // 1 day = 24 hours
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); // 1 hour = 60 minutes
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)); // 1 minute = 60 seconds
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000); // 1 second = 1000 milliseconds
+
+      day.innerHTML = days + 'd'; 
+      hour.innerHTML = hours + 'h';
+      minute.innerHTML = minutes + 'm';
+      second.innerHTML = seconds + 's';
+
+      if (distance < 0) {
+        clearInterval(x);
+        container.innerHTML = 'EXPIRED';
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
